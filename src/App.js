@@ -1,10 +1,12 @@
 import "./App.css";
-import Demo from "./components/Demo";
+import ResponsiveAppBar from "./components/ResponsiveAppBar";
+import Register from "./pages/onboarding/Register";
 
 function App() {
   return (
     <div className="App">
-      <Demo />
+      <ResponsiveAppBar />
+      <Register />
     </div>
   );
 }
