@@ -11,7 +11,7 @@ import { useTheme } from "@mui/material/styles";
 import Link from "@mui/material/Link";
 import backgroundIcon from "../../assets/images/background_icon.svg";
 
-function Register() {
+function Login() {
   const theme = useTheme();
 
   const [workMail, setWorkMail] = useState("");
@@ -147,4 +147,4 @@ function Register() {
   );
 }
 
-export default Register;
+export default Login;
