@@ -1,15 +1,6 @@
 import React, { useState, useEffect } from "react";
 import ResponsiveAppBar from "../../components/ResponsiveAppBar";
-import {
-  Typography,
-  Box,
-  Card,
-  TextField,
-  FormControl,
-  Select,
-  MenuItem,
-  Button,
-} from "@mui/material";
+import { Typography, Box, Button } from "@mui/material";
 import { CSSTransition, TransitionGroup } from "react-transition-group";
 import "./LandingPage.css";
 import StandardLabeledTextfield from "../../components/StandardLabelledTextfield";
@@ -25,7 +16,7 @@ const words = ["Venue", "Ballroom", "Auditorium", "Hotel", "Restaurant"];
 function LandingPage() {
   const [index, setIndex] = useState(0);
   const [phone, setPhone] = useState("");
-  const [buttonDisabled, setButtonDisabled] = useState("true");
+  const [buttonDisabled, setButtonDisabled] = useState(true);
   const [isError, setIsError] = useState(true);
 
   useEffect(() => {
