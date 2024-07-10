@@ -15,16 +15,18 @@ import "./LandingPage.css";
 import StandardLabeledTextfield from "../../components/StandardLabelledTextfield";
 import CustomDivider from "../../components/CustomDivider";
 import LandingPageMarquee from "../../components/LandingPageMarquee";
+import PhoneInput from "react-phone-input-2";
+// import "react-phone-input-2/lib/style.css";
+import "react-phone-input-2/lib/bootstrap.css";
+import GradientBlob from "../../components/GradientBlob";
 
 const words = ["Venue", "Ballroom", "Auditorium", "Hotel", "Restaurant"];
 
 function LandingPage() {
   const [index, setIndex] = useState(0);
-  const [countryCode, setCountryCode] = React.useState("");
-
-  const handleCountryCodeChange = (event) => {
-    setCountryCode(event.target.value);
-  };
+  const [phone, setPhone] = useState("");
+  const [buttonDisabled, setButtonDisabled] = useState("true");
+  const [isError, setIsError] = useState(true);
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -45,17 +47,23 @@ function LandingPage() {
             width: "100%",
             display: "Flex",
             flexDirection: "column",
-            alignItems: "center",
+            alignItems: { xs: "start", md: "center" },
           }}
         >
-          <Box style={{ display: "flex", justifyContent: "center" }}>
+          <Box
+            style={{
+              display: "flex",
+              justifyContent: "center",
+            }}
+          >
             <Typography
               variant="h3"
               sx={{
                 mt: 6,
                 fontWeight: "500",
-                fontSize: { xs: "2rem", md: "3rem" },
-                ml: -20,
+                fontSize: { xs: "1.7rem", sm: "2rem", md: "3rem" },
+                ml: { md: -20 },
+                pl: { xs: 10, md: 0 },
               }}
             >
               List your
@@ -79,7 +87,7 @@ function LandingPage() {
                       top: 0,
                       left: 0,
                       right: 0,
-                      fontSize: { xs: "2rem", md: "3rem" },
+                      fontSize: { xs: "1.7rem", sm: "2rem", md: "3rem" },
                     }}
                   >
                     {words[index]}
@@ -88,30 +96,44 @@ function LandingPage() {
               </TransitionGroup>
             </div>
           </Box>
-          <Box style={{ display: "flex", justifyContent: "center" }}>
+          <Box style={{ display: "flex" }}>
             <Typography
               variant="h3"
               gutterBottom
-              sx={{ fontWeight: "500", fontSize: { xs: "2rem", md: "3rem" } }}
+              sx={{
+                fontWeight: "500",
+                fontSize: { xs: "1.2rem", sm: "2rem", md: "3rem" },
+                px: { xs: 10, md: 0 },
+                textAlign: "center",
+              }}
             >
               for a profitable opportunity!
             </Typography>
           </Box>
-          <Box style={{ display: "flex", justifyContent: "center" }}>
+          <Box style={{ display: "flex" }}>
             <Typography
               variant="h6"
               gutterBottom
               sx={{
                 fontWeight: "300",
-                fontSize: { xs: "1rem", md: "1.2rem" },
-                px: { xs: 2, md: 0 },
+                fontSize: { xs: "0.8rem", sm: "1rem", md: "1.2rem" },
+                px: { xs: 10, md: 0 },
+                textAlign: "left",
               }}
             >
               Join thousands of hosts renting their space for events on{" "}
               <b>Find my venue.</b>
             </Typography>
           </Box>
-          <Card sx={{ p: 3, width: "75%", m: "auto" }}>
+          <Box
+            sx={{
+              p: 3,
+              width: "75%",
+              m: "auto",
+              borderRadius: "12px",
+              boxShadow: "0 6px 10px #00000016",
+            }}
+          >
             <Box
               sx={{
                 display: "flex",
@@ -134,6 +156,9 @@ function LandingPage() {
                 id="workEmail"
                 label="Work Email"
                 placeholder="Enter your work email"
+                inputType="email"
+                error={isError}
+                errorMessage="Please enter a valid email address"
               />
               <CustomDivider
                 orientation="vertical"
@@ -155,24 +180,17 @@ function LandingPage() {
                   Contact Number
                 </Typography>
                 <Box sx={{ display: "flex" }}>
-                  <FormControl sx={{ minWidth: 20, mr: 2 }} size="small">
-                    <Select
-                      value={countryCode}
-                      onChange={handleCountryCodeChange}
-                      displayEmpty
-                    >
-                      <MenuItem disabled value="">
-                        <em>+92</em>
-                      </MenuItem>
-                      <MenuItem value={+91}>+91</MenuItem>
-                      <MenuItem value={+92}>+92</MenuItem>
-                      <MenuItem value={+93}>+93</MenuItem>
-                    </Select>
-                  </FormControl>
-                  <TextField
-                    id="contactNumber"
-                    variant="standard"
+                  <PhoneInput
+                    country={"ae"}
                     placeholder="Enter your contact no."
+                    enableSearch={true}
+                    value={phone}
+                    onChange={(phone) => setPhone(phone)}
+                    inputProps={{
+                      name: "phone",
+                      required: true,
+                    }}
+                    inputStyle={{ border: "none", boxShadow: "none" }}
                   />
                 </Box>
               </Box>
@@ -192,22 +210,26 @@ function LandingPage() {
                   display: "flex",
                   alignItems: "center",
                   justifyContent: "center",
+                  margin: 2,
                 }}
               >
                 <Button
                   variant="contained"
                   size="medium"
+                  disabled={buttonDisabled}
                   sx={{ height: 40, textTransform: "none", borderRadius: 2 }}
                 >
                   Register
                 </Button>
               </Box>
             </Box>
-          </Card>
+          </Box>
         </Box>
         <div className="marquee-container">
           <LandingPageMarquee />
         </div>
+        <GradientBlob position="left"></GradientBlob>
+        <GradientBlob position="right" top={70}></GradientBlob>
       </div>
     </>
   );

@@ -16,13 +16,13 @@ const LandingPageMarquee = () => {
   ];
 
   return (
-    <Marquee velocity={25}>
+    <Marquee velocity={100}>
       {items.map((item, index) => (
-        <div key={index} style={{ textAlign: "center" }}>
+        <div key={index} style={{ textAlign: "center", margin: 0, padding: 0 }}>
           <img
             src={item.image}
             alt={item.text}
-            style={{ width: "300px", height: "300px" }}
+            style={{ width: "300px", height: "400px" }}
           />
           <p>{item.text}</p>
         </div>

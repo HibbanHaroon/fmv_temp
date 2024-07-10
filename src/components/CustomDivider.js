@@ -11,7 +11,7 @@ const CustomDivider = ({
     <Divider
       orientation={orientation}
       variant={variant}
-      sx={{ color }}
+      sx={{ color, margin: 2 }}
       flexItem={flexItem ? true : undefined}
     />
   );
