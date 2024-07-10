@@ -1,0 +1,40 @@
+.word-container {
+  position: relative;
+  display: inline-block;
+  height: 1em; /* Set to the height of the typography to avoid layout shift */
+}
+
+.word-enter {
+  position: absolute;
+  top: 0;
+  transform: translateY(100%);
+  opacity: 0;
+}
+.word-enter-active {
+  transform: translateY(0);
+  opacity: 1;
+  transition: transform 500ms ease-in-out, opacity 500ms ease-in-out;
+}
+.word-exit {
+  position: absolute;
+  top: 0;
+  transform: translateY(0);
+  opacity: 1;
+}
+.word-exit-active {
+  transform: translateY(-100%);
+  opacity: 0;
+  transition: transform 500ms ease-in-out, opacity 500ms ease-in-out;
+}
+
+.arc-container {
+  position: relative;
+  background-color: white;
+  padding-bottom: 70px;
+}
+
+.marquee-container {
+  position: relative;
+  top: -140px;
+  z-index: -1;
+}
