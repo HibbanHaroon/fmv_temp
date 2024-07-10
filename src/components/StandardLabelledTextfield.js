@@ -9,6 +9,8 @@ const StandardLabeledTextfield = ({
   inputType = "text",
   isError = false,
   errorMessage = "",
+  value,
+  onChange,
 }) => {
   return (
     <Box
@@ -59,6 +61,11 @@ const StandardLabeledTextfield = ({
         type={inputType}
         InputProps={{ disableUnderline: true }}
         error={isError}
+        value={value}
+        onChange={onChange}
+        sx={{
+          input: { color: isError ? "primary.main" : "text.primary" },
+        }}
       />
     </Box>
   );
