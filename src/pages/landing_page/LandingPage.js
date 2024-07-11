@@ -107,6 +107,7 @@ function LandingPage() {
                     variant="h3"
                     gutterBottom
                     sx={{
+                      ml: 1,
                       mt: 3,
                       fontWeight: "500",
                       color: "primary.main",
