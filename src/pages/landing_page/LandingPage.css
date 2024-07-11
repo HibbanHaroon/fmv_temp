@@ -60,3 +60,7 @@
 .form-control {
   height: 30px;
 }
+
+.mirrored-image {
+  transform: scaleX(-1);
+}
