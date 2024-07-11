@@ -303,6 +303,7 @@ function LandingPage() {
                       </Box>
                       <Box sx={{ display: "flex" }}>
                         <PhoneInput
+                          countryCodeEditable={false}
                           country={"ae"}
                           placeholder="Enter your contact no."
                           enableSearch={true}
