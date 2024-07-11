@@ -42,7 +42,7 @@
 @media (max-width: 599px) {
   /* xs */
   .marquee-container {
-    top: -70px;
+    top: -50px;
   }
 }
 

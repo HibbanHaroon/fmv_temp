@@ -34,7 +34,11 @@ function LandingPage() {
   const [isError, setIsError] = useState({ email: false, phone: false });
   const isMd = useMediaQuery(theme.breakpoints.down("md"));
   const [isRegistered, setIsRegistered] = useState(false);
-  const [snackbar, setSnackbar] = useState({ open: false, message: "", severity: "success" });
+  const [snackbar, setSnackbar] = useState({
+    open: false,
+    message: "",
+    severity: "success",
+  });
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -49,7 +53,8 @@ function LandingPage() {
   }, [fullName, workEmail, phone, venueName]);
 
   const handleRegister = async () => {
-    const emailPattern = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|.(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    const emailPattern =
+      /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|.(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
     const phonePattern = /^[0-9]{10,15}$/;
 
     const emailValid = emailPattern.test(workEmail);
@@ -63,29 +68,40 @@ function LandingPage() {
           name: fullName,
           email: workEmail,
           phoneNumber: phone,
-          venueName: venueName
+          venueName: venueName,
         };
-        
+
         const response = await registerVenue(venueData);
         console.log("Venue registered successfully:", response);
         setIsRegistered(true);
-        setSnackbar({ open: true, message: "Venue registered successfully!", severity: "success" });
+        setSnackbar({
+          open: true,
+          message: "Venue registered successfully!",
+          severity: "success",
+        });
       } catch (error) {
         console.error("Error registering venue:", error);
-        setSnackbar({ open: true, message: "Failed to register venue. Please try again.", severity: "error" });
+        setSnackbar({
+          open: true,
+          message: "Failed to register venue. Please try again.",
+          severity: "error",
+        });
       }
     } else {
-      setSnackbar({ open: true, message: "Please correct the errors in the form.", severity: "error" });
+      setSnackbar({
+        open: true,
+        message: "Please correct the errors in the form.",
+        severity: "error",
+      });
     }
   };
 
   const handleCloseSnackbar = (event, reason) => {
-    if (reason === 'clickaway') {
+    if (reason === "clickaway") {
       return;
     }
     setSnackbar({ ...snackbar, open: false });
   };
-
 
   return (
     <>
@@ -112,10 +128,10 @@ function LandingPage() {
               variant="h3"
               sx={{
                 mt: { xs: 3, md: 3 },
-                fontWeight: "500",
+                fontWeight: "700",
                 fontSize: { xs: "1.7rem", sm: "2rem", md: "3rem" },
                 ml: { md: -20 },
-                px: { xs: 3, sm: 11, md: 0 },
+                pl: { xs: 3, sm: 11, md: 0 },
               }}
             >
               List your
@@ -131,9 +147,9 @@ function LandingPage() {
                     variant="h3"
                     gutterBottom
                     sx={{
-                      ml: 1,
+                      ml: { xs: "5px" },
                       mt: 3,
-                      fontWeight: "500",
+                      fontWeight: "700",
                       color: "primary.main",
                       position: "absolute",
                       top: 0,
@@ -153,7 +169,7 @@ function LandingPage() {
               variant="h3"
               gutterBottom
               sx={{
-                fontWeight: "500",
+                fontWeight: "700",
                 fontSize: { xs: "1.2rem", sm: "2rem", md: "3rem" },
                 px: { xs: 3, sm: 11, md: 0 },
                 textAlign: "center",
@@ -200,6 +216,7 @@ function LandingPage() {
                     gap: { xs: 2, md: 0 },
                   }}
                 >
+                  {/* Left */}
                   <Box
                     sx={{
                       display: "flex",
@@ -313,6 +330,7 @@ function LandingPage() {
                       sx={{ display: { xs: "none", sm: "none", md: "block" } }}
                     />
                   </Box>
+                  {/* Right */}
                   <Box>
                     <StandardLabeledTextfield
                       id="venueName"
@@ -345,17 +363,29 @@ function LandingPage() {
               </Box>
             </>
           ) : (
-            <RegistrationSuccessfulMessage/>
+            <RegistrationSuccessfulMessage />
           )}
         </Box>
         <div className="marquee-container">
           <LandingPageMarquee />
         </div>
-        <GradientBlob position="left"></GradientBlob>
-        <GradientBlob position="right" top={70}></GradientBlob>
+        {isMd ? null : (
+          <>
+            <GradientBlob position="left"></GradientBlob>
+            <GradientBlob position="right" top={70}></GradientBlob>
+          </>
+        )}
       </div>
-      <Snackbar open={snackbar.open} autoHideDuration={6000} onClose={handleCloseSnackbar}>
-        <Alert onClose={handleCloseSnackbar} severity={snackbar.severity} sx={{ width: '100%' }}>
+      <Snackbar
+        open={snackbar.open}
+        autoHideDuration={6000}
+        onClose={handleCloseSnackbar}
+      >
+        <Alert
+          onClose={handleCloseSnackbar}
+          severity={snackbar.severity}
+          sx={{ width: "100%" }}
+        >
           {snackbar.message}
         </Alert>
       </Snackbar>

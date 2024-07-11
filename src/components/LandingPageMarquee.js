@@ -1,10 +1,10 @@
 import React from "react";
 import Marquee from "react-fast-marquee";
-import restaurantImage from "../assets/images/restaurants_image.svg";
-import yachtImage from "../assets/images/yacht_image.svg";
-import ballroomImage from "../assets/images/ballroom_image.svg";
-import auditoriumImage from "../assets/images/auditorium_image.svg";
-import museumImage from "../assets/images/museum_image.svg";
+import restaurantImage from "../assets/images/restaurants_image.jpg";
+import yachtImage from "../assets/images/yacht_image.jpg";
+import ballroomImage from "../assets/images/ballroom_image.jpg";
+import auditoriumImage from "../assets/images/auditorium_image.jpg";
+import museumImage from "../assets/images/museum_image.jpg";
 import { useTheme } from "@mui/material/styles";
 import { useMediaQuery } from "@mui/material";
 
@@ -25,7 +25,7 @@ const LandingPageMarquee = () => {
 
   const getImageStyle = () => {
     if (isXs) {
-      return { width: "200px", height: "200px" };
+      return { width: "150px", height: "150px" };
     }
     if (isSm) {
       return { width: "200px", height: "200px" };
