@@ -1,5 +1,12 @@
 import React from "react";
-import { Box, Typography, TextField, IconButton } from "@mui/material";
+import { useTheme } from "@mui/material/styles";
+import {
+  Box,
+  Typography,
+  TextField,
+  IconButton,
+  useMediaQuery,
+} from "@mui/material";
 import "./StandardLabelledTextfield.css";
 
 const StandardLabeledTextfield = ({
@@ -12,6 +19,9 @@ const StandardLabeledTextfield = ({
   value,
   onChange,
 }) => {
+  const theme = useTheme();
+  const isXs = useMediaQuery(theme.breakpoints.only("xs"));
+
   return (
     <Box
       sx={{
@@ -25,10 +35,13 @@ const StandardLabeledTextfield = ({
         }}
       >
         <Typography
-          variant={{ xs: "body2", md: "body1" }}
+          variant="body1"
           gutterBottom
           fontWeight="400"
           align="left"
+          sx={{
+            fontSize: { xs: "subtitle2.fontSize", md: "body1.fontSize" },
+          }}
         >
           {label}
         </Typography>
@@ -64,7 +77,20 @@ const StandardLabeledTextfield = ({
         value={value}
         onChange={onChange}
         sx={{
-          input: { color: isError ? "primary.main" : "text.primary" },
+          input: {
+            color: isError
+              ? theme.palette.primary.main
+              : theme.palette.text.primary,
+
+            fontSize: isXs
+              ? theme.typography.subtitle2.fontSize
+              : theme.typography.body1.fontSize,
+          },
+          "& .MuiInputBase-input::placeholder": {
+            fontSize: isXs
+              ? theme.typography.subtitle2.fontSize
+              : theme.typography.body1.fontSize,
+          },
         }}
       />
     </Box>

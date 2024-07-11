@@ -15,7 +15,6 @@ function ResponsiveAppBar() {
             src={logo}
             alt="logo"
             sx={{
-              display: { xs: "none", md: "flex" },
               height: 40,
               marginRight: 2,
             }}
