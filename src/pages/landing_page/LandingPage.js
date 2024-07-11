@@ -16,7 +16,7 @@ import LandingPageMarquee from "../../components/LandingPageMarquee";
 import PhoneInput from "react-phone-input-2";
 import "react-phone-input-2/lib/bootstrap.css";
 import GradientBlob from "../../components/GradientBlob";
-import successful_register_image from "../../assets/images/successful_register_image.svg";
+import RegistrationSuccessfulMessage from "../../components/RegistrationSuccessfulMessage";
 
 const words = ["Venue", "Ballroom", "Auditorium", "Hotel", "Restaurant"];
 
@@ -321,43 +321,7 @@ function LandingPage() {
               </Box>
             </>
           ) : (
-            <>
-              <Box sx={{ display: "flex" }}>
-                <img
-                  src={successful_register_image}
-                  alt="Successful Celebration"
-                  style={{ height: 110, mr: 3 }}
-                  className="mirrored-image"
-                ></img>
-                <Box
-                  sx={{
-                    display: "flex",
-                    justifyContent: "center",
-                    alignItems: "center",
-                    flexDirection: "column",
-                    mt: 6,
-                    mr: 8,
-                    ml: 8,
-                  }}
-                >
-                  <Typography variant="h5" sx={{ fontWeight: "500" }}>
-                    <span style={{ color: "#FE4747" }}>Thank You!</span> For
-                    Registering With Us
-                  </Typography>
-                  <Typography
-                    variant="body2"
-                    sx={{ color: "#B0B0B0", fontWeight: "500" }}
-                  >
-                    Your details have been submitted!
-                  </Typography>
-                </Box>
-                <img
-                  src={successful_register_image}
-                  alt="Successful Celebration"
-                  style={{ height: 110 }}
-                ></img>
-              </Box>
-            </>
+            <RegistrationSuccessfulMessage></RegistrationSuccessfulMessage>
           )}
         </Box>
         <div className="marquee-container">
