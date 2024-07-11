@@ -7,6 +7,8 @@ import {
   Button,
   IconButton,
   useMediaQuery,
+  Snackbar,
+  Alert,
 } from "@mui/material";
 import { CSSTransition, TransitionGroup } from "react-transition-group";
 import "./LandingPage.css";
@@ -17,6 +19,7 @@ import PhoneInput from "react-phone-input-2";
 import "react-phone-input-2/lib/bootstrap.css";
 import GradientBlob from "../../components/GradientBlob";
 import RegistrationSuccessfulMessage from "../../components/RegistrationSuccessfulMessage";
+import { registerVenue } from "../../api/venue.request";
 
 const words = ["Venue", "Ballroom", "Auditorium", "Hotel", "Restaurant"];
 
@@ -31,6 +34,7 @@ function LandingPage() {
   const [isError, setIsError] = useState({ email: false, phone: false });
   const isMd = useMediaQuery(theme.breakpoints.down("md"));
   const [isRegistered, setIsRegistered] = useState(false);
+  const [snackbar, setSnackbar] = useState({ open: false, message: "", severity: "success" });
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -40,28 +44,48 @@ function LandingPage() {
   }, []);
 
   useEffect(() => {
-    console.log(fullName, workEmail, phone, venueName);
     const isFormValid = fullName && workEmail && phone && venueName;
     setButtonDisabled(!isFormValid);
   }, [fullName, workEmail, phone, venueName]);
 
-  const handleRegister = () => {
-    const emailPattern =
-      /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|.(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+  const handleRegister = async () => {
+    const emailPattern = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|.(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
     const phonePattern = /^[0-9]{10,15}$/;
 
     const emailValid = emailPattern.test(workEmail);
     const phoneValid = phonePattern.test(phone);
 
     setIsError({ email: !emailValid, phone: !phoneValid });
-    console.log({ email: !emailValid, phone: !phoneValid });
 
     if (emailValid && phoneValid) {
-      // Proceed with form submission
-      console.log("Form Submitted");
-      setIsRegistered(true);
+      try {
+        const venueData = {
+          name: fullName,
+          email: workEmail,
+          phoneNumber: phone,
+          venueName: venueName
+        };
+        
+        const response = await registerVenue(venueData);
+        console.log("Venue registered successfully:", response);
+        setIsRegistered(true);
+        setSnackbar({ open: true, message: "Venue registered successfully!", severity: "success" });
+      } catch (error) {
+        console.error("Error registering venue:", error);
+        setSnackbar({ open: true, message: "Failed to register venue. Please try again.", severity: "error" });
+      }
+    } else {
+      setSnackbar({ open: true, message: "Please correct the errors in the form.", severity: "error" });
     }
   };
+
+  const handleCloseSnackbar = (event, reason) => {
+    if (reason === 'clickaway') {
+      return;
+    }
+    setSnackbar({ ...snackbar, open: false });
+  };
+
 
   return (
     <>
@@ -321,7 +345,7 @@ function LandingPage() {
               </Box>
             </>
           ) : (
-            <RegistrationSuccessfulMessage></RegistrationSuccessfulMessage>
+            <RegistrationSuccessfulMessage/>
           )}
         </Box>
         <div className="marquee-container">
@@ -330,6 +354,11 @@ function LandingPage() {
         <GradientBlob position="left"></GradientBlob>
         <GradientBlob position="right" top={70}></GradientBlob>
       </div>
+      <Snackbar open={snackbar.open} autoHideDuration={6000} onClose={handleCloseSnackbar}>
+        <Alert onClose={handleCloseSnackbar} severity={snackbar.severity} sx={{ width: '100%' }}>
+          {snackbar.message}
+        </Alert>
+      </Snackbar>
     </>
   );
 }
