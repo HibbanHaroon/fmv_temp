@@ -25,7 +25,7 @@ const LandingPageMarquee = () => {
 
   const getImageStyle = () => {
     if (isXs) {
-      return { width: "150px", height: "150px" };
+      return { width: "150px", height: "170px" };
     }
     if (isSm) {
       return { width: "200px", height: "200px" };
@@ -42,7 +42,10 @@ const LandingPageMarquee = () => {
   return (
     <Marquee velocity={100}>
       {items.map((item, index) => (
-        <div key={index} style={{ textAlign: "center", margin: 0, padding: 0 }}>
+        <div
+          key={index}
+          style={{ textAlign: "center", margin: 10, padding: 0 }}
+        >
           <img src={item.image} alt={item.text} style={getImageStyle()} />
           <p>{item.text}</p>
         </div>
