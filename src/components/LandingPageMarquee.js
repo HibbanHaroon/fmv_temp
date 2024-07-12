@@ -50,6 +50,15 @@ const LandingPageMarquee = () => {
           <p>{item.text}</p>
         </div>
       ))}
+      {items.map((item, index) => (
+        <div
+          key={index}
+          style={{ textAlign: "center", margin: 10, padding: 0 }}
+        >
+          <img src={item.image} alt={item.text} style={getImageStyle()} />
+          <p>{item.text}</p>
+        </div>
+      ))}
     </Marquee>
   );
 };
