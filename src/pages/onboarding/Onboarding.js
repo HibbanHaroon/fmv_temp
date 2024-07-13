@@ -1,25 +1,18 @@
 import React, { useState } from "react";
-import { Container, Box, Button, Typography, Card } from "@mui/material";
+import { Container, Box, Button, Typography } from "@mui/material";
 import ResponsiveAppBar from "../../components/ResponsiveAppBar";
 import LinearProgressBar from "./components/LinearProgressBar";
 import KeyboardBackspaceIcon from "@mui/icons-material/KeyboardBackspace";
 import backgroundIcon from "../../assets/images/background_icon.svg";
 import { ReactComponent as CouponIcon } from "../../assets/images/coupon_icon.svg";
-import TextfieldNumber from "./components/TextfieldNumber";
-import { useTheme } from "@mui/material/styles";
 
-import Tooltip from "../../components/Tooltip";
-import LabelledRadioGroup from "./components/LabelledRadioGroup";
-import RestaurantCard from "./components/RestaurantCard";
-import VenueCard from "./components/VenueCard";
 import TypeOfVenue from "./components/TypeOfVenue";
 import AboutYourVenue from "./components/AboutYourVenue";
-import CustomIconChips from "./components/CustomIconChips";
-import chipLabels from "../../constants/chipLabels";
 import MultiChipSelector from "./components/MultiChipSelector";
+import MessageCard from "./components/MessageCard";
+import TickGreenBadgeIcon from "../../assets/icons/TickGreenBadgeIcon";
 
 function Onboarding() {
-  const theme = useTheme();
   const [activeStep, setActiveStep] = useState(0);
   const [sameLocation, setSameLocation] = useState("yes");
   const [withAlcoholNumber, setWithAlcoholNumber] = useState(0);
@@ -38,9 +31,9 @@ function Onboarding() {
     setActiveStep((prevActiveStep) => prevActiveStep - 1);
   };
 
-  const handleStepChange = (step) => {
-    setActiveStep(step);
-  };
+  // const handleStepChange = (step) => {
+  //   setActiveStep(step);
+  // };
 
   const handleWithAlcoholNumberChange = (event) => {
     setWithAlcoholNumber(event.target.value);
@@ -60,17 +53,17 @@ function Onboarding() {
 
   const handleButton1Click = () => {
     setSelectedButton(1);
-    setActiveStep((prevActiveStep) => prevActiveStep + 1);
+    handleNext();
   };
 
   const handleButton2Click = () => {
     setSelectedButton(2);
-    setActiveStep((prevActiveStep) => prevActiveStep + 1);
+    handleNext();
   };
 
   const handleContinue = () => {
     console.log(activeStep);
-    setActiveStep((prevActiveStep) => prevActiveStep + 1);
+    handleNext();
   };
 
   return (
@@ -86,9 +79,9 @@ function Onboarding() {
           marginTop: "3rem",
           marginBottom: "3rem",
           minHeight: "60vh",
-          display: activeStep == 0 ? "flex" : "block",
-          justifyContent: activeStep == 0 ? "center" : "initial",
-          alignItems: activeStep == 0 ? "center" : "initial",
+          display: activeStep === 0 ? "flex" : "block",
+          justifyContent: activeStep === 0 ? "center" : "initial",
+          alignItems: activeStep === 0 ? "center" : "initial",
         }}
       >
         <Container
@@ -148,7 +141,7 @@ function Onboarding() {
             </Box>
           )}
           {/* Type Of Venue Card I */}
-          {activeStep == 0 && (
+          {activeStep === 0 && (
             <Box sx={{ width: { xs: "100%", md: "60%" } }}>
               <TypeOfVenue
                 title={"Type of Venues"}
@@ -164,9 +157,9 @@ function Onboarding() {
             </Box>
           )}
 
-          {activeStep == 1 && <MultiChipSelector />}
+          {activeStep === 1 && <MultiChipSelector />}
 
-          {activeStep == 2 && (
+          {activeStep === 2 && (
             <AboutYourVenue
               withAlcoholNumber={withAlcoholNumber}
               withoutAlcoholNumber={withoutAlcoholNumber}
@@ -179,6 +172,14 @@ function Onboarding() {
               handleSameLocationChange={handleSameLocationChange}
               handleQuantityNumberChange={handleQuantityNumberChange}
             ></AboutYourVenue>
+          )}
+
+          {activeStep === 3 && (
+            <MessageCard
+              loaderComponent={<TickGreenBadgeIcon />}
+              primaryText="Payment Successful"
+              secondaryText="Creating your dashboard experience..."
+            />
           )}
 
           {activeStep >= 1 && (
