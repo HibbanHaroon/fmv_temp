@@ -25,7 +25,7 @@
   border-radius: 16px;
   border: 1px solid #dddddd;
   color: var(--tooltip-color);
-  content: attr(title);
+  content: attr(data-tooltip);
   font-family: Outfit;
   font-size: 14px;
   left: -40px;

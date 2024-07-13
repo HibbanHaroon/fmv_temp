@@ -12,6 +12,11 @@ import Tooltip from "../../components/Tooltip";
 import LabelledRadioGroup from "./components/LabelledRadioGroup";
 import RestaurantCard from "./components/RestaurantCard";
 import VenueCard from "./components/VenueCard";
+import TypeOfVenue from "./components/TypeOfVenue";
+import AboutYourVenue from "./components/AboutYourVenue";
+import CustomIconChips from "./components/CustomIconChips";
+import chipLabels from "../../constants/chipLabels";
+import MultiChipSelector from "./components/MultiChipSelector";
 
 function Onboarding() {
   const theme = useTheme();
@@ -20,6 +25,8 @@ function Onboarding() {
   const [withAlcoholNumber, setWithAlcoholNumber] = useState(0);
   const [withoutAlcoholNumber, setWithoutAlcoholNumber] = useState(0);
   const [quantityNumber, setQuantityNumber] = useState(0);
+  const [selectedButton, setSelectedButton] = useState(null);
+
   const maxSteps = 4;
 
   const handleNext = () => {
@@ -51,10 +58,25 @@ function Onboarding() {
     setQuantityNumber(event.target.value);
   };
 
+  const handleButton1Click = () => {
+    setSelectedButton(1);
+    setActiveStep((prevActiveStep) => prevActiveStep + 1);
+  };
+
+  const handleButton2Click = () => {
+    setSelectedButton(2);
+    setActiveStep((prevActiveStep) => prevActiveStep + 1);
+  };
+
+  const handleContinue = () => {
+    console.log(activeStep);
+    setActiveStep((prevActiveStep) => prevActiveStep + 1);
+  };
+
   return (
     <>
       <ResponsiveAppBar />
-      <LinearProgressBar value={30} />
+      <LinearProgressBar value={(activeStep / maxSteps) * 100} />
       <div
         style={{
           backgroundImage: `url(${backgroundIcon})`,
@@ -64,6 +86,9 @@ function Onboarding() {
           marginTop: "3rem",
           marginBottom: "3rem",
           minHeight: "60vh",
+          display: activeStep == 0 ? "flex" : "block",
+          justifyContent: activeStep == 0 ? "center" : "initial",
+          alignItems: activeStep == 0 ? "center" : "initial",
         }}
       >
         <Container
@@ -74,111 +99,126 @@ function Onboarding() {
             width: { xs: "90%", md: "55%" },
           }}
         >
-          <Box sx={{ width: "100%" }}>
-            <Typography
-              variant="h5"
-              variantMapping={{
-                xs: "h5",
-                md: "h4",
-              }}
-              gutterBottom
-              sx={{
-                mt: { xs: 3, md: 3 },
-                fontWeight: "600",
-              }}
-            >
-              Tell us more about your venue
-            </Typography>
-            <Typography
-              variant="body1"
-              gutterBottom
-              sx={{
-                fontWeight: "500",
-                textAlign: "center",
-                color: "grey.text",
-              }}
-            >
-              This will help us find a better plan for you
-            </Typography>
-            <Button
-              variant="contained"
-              startIcon={<CouponIcon />}
-              sx={{
-                backgroundColor: "green.light",
-                color: "green.text",
-                textTransform: "none",
-                mt: "1rem",
-                boxShadow: "none",
-                "&:hover": {
-                  backgroundColor: "rgba(3, 159, 141, 0.2)",
-                },
-              }}
-              fullWidth
-            >
-              Start your Free 6 Month Trial
-            </Button>
-          </Box>
-          {/* Restaurant Card here */}
-          <RestaurantCard
-            withAlcoholNumber={withAlcoholNumber}
-            withoutAlcoholNumber={withoutAlcoholNumber}
-            handleWithAlcoholNumberChange={handleWithAlcoholNumberChange}
-            handleWithoutAlcoholNumberChange={handleWithoutAlcoholNumberChange}
-          ></RestaurantCard>
-          {/* Venue Card */}
-          {/* <VenueCard
-            isLocation={true}
-            sameLocation={sameLocation}
-            handleSameLocationChange={handleSameLocationChange}
-            isOtherText={true}
-            otherText={
-              "Choose the total no. of venue available in your property"
-            }
-            quantityNumber={quantityNumber}
-            handleQuantityNumberChange={handleQuantityNumberChange}
-            title={"Venues"}
-            description={"Ballroom, Dance Studio +4"}
-          ></VenueCard> */}
+          {/* Not visible for step 0 */}
+          {activeStep !== 0 && (
+            <Box sx={{ width: "100%" }}>
+              <Typography
+                variant="h5"
+                variantMapping={{
+                  xs: "h5",
+                  md: "h4",
+                }}
+                gutterBottom
+                sx={{
+                  mt: { xs: 3, md: 3 },
+                  fontWeight: "600",
+                }}
+              >
+                Tell us more about your venue
+              </Typography>
+              <Typography
+                variant="body1"
+                gutterBottom
+                sx={{
+                  fontWeight: "500",
+                  textAlign: "center",
+                  color: "grey.text",
+                }}
+              >
+                This will help us find a better plan for you
+              </Typography>
+              <Button
+                variant="contained"
+                startIcon={<CouponIcon />}
+                sx={{
+                  py: 1,
+                  backgroundColor: "green.light",
+                  color: "green.text",
+                  textTransform: "none",
+                  mt: "1rem",
+                  boxShadow: "none",
+                  "&:hover": {
+                    backgroundColor: "rgba(3, 159, 141, 0.2)",
+                  },
+                }}
+                fullWidth
+              >
+                Start your Free 6 Month Trial
+              </Button>
+            </Box>
+          )}
+          {/* Type Of Venue Card I */}
+          {activeStep == 0 && (
+            <Box sx={{ width: { xs: "100%", md: "60%" } }}>
+              <TypeOfVenue
+                title={"Type of Venues"}
+                description={
+                  "Choose the type of Venue you would want to list this will help us find a suitable plan for your needs"
+                }
+                buttonLabel1={"Hotel stay + Venues"}
+                buttonLabel2={"Venue"}
+                handleButton1Click={handleButton1Click}
+                handleButton2Click={handleButton2Click}
+                selectedButton={selectedButton}
+              />
+            </Box>
+          )}
 
-          <VenueCard
-            quantityNumber={quantityNumber}
-            handleQuantityNumberChange={handleQuantityNumberChange}
-            title={"Venues"}
-            description={"Ballroom, Dance Studio +4"}
-          ></VenueCard>
-          <Box sx={{ width: "100%", mt: 2 }}>
+          {activeStep == 1 && <MultiChipSelector />}
+
+          {activeStep == 2 && (
+            <AboutYourVenue
+              withAlcoholNumber={withAlcoholNumber}
+              withoutAlcoholNumber={withoutAlcoholNumber}
+              sameLocation={sameLocation}
+              quantityNumber={quantityNumber}
+              handleWithAlcoholNumberChange={handleWithAlcoholNumberChange}
+              handleWithoutAlcoholNumberChange={
+                handleWithoutAlcoholNumberChange
+              }
+              handleSameLocationChange={handleSameLocationChange}
+              handleQuantityNumberChange={handleQuantityNumberChange}
+            ></AboutYourVenue>
+          )}
+
+          {activeStep >= 1 && (
+            <Box sx={{ width: "100%", mt: 2 }}>
+              <Button
+                variant="contained"
+                sx={{
+                  backgroundColor: "primary.main",
+                  color: "white",
+                  textTransform: "none",
+                  mt: "1rem",
+                  boxShadow: "none",
+                  width: { xs: "100%", md: "70%" },
+                }}
+                onClick={handleContinue}
+              >
+                Continue
+              </Button>
+            </Box>
+          )}
+        </Container>
+        {activeStep !== 0 && (
+          <Box
+            sx={{
+              display: "flex",
+              position: "absolute",
+              top: { xs: "7rem", md: "10rem" },
+              left: { xs: "2rem", md: "8rem" },
+            }}
+          >
             <Button
-              variant="contained"
-              sx={{
-                backgroundColor: "primary.main",
-                color: "white",
-                textTransform: "none",
-                mt: "1rem",
-                boxShadow: "none",
-                width: { xs: "100%", md: "70%" },
-              }}
+              variant="text"
+              startIcon={<KeyboardBackspaceIcon />}
+              sx={{ color: "black.text" }}
+              onClick={handleBack}
             >
-              Continue
+              Back
             </Button>
           </Box>
-        </Container>
-        <Box
-          sx={{
-            display: "flex",
-            position: "absolute",
-            top: { xs: "7rem", md: "10rem" },
-            left: { xs: "2rem", md: "8rem" },
-          }}
-        >
-          <Button
-            variant="text"
-            startIcon={<KeyboardBackspaceIcon />}
-            sx={{ color: "black.text" }}
-            onClick={handleBack}
-          >
-            Back
-          </Button>
-        </Box>
+        )}
       </div>
     </>
   );
