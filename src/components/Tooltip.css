@@ -24,7 +24,7 @@
   background-color: #fff;
   border-radius: 16px;
   border: 1px solid #dddddd;
-  color: #f25700;
+  color: var(--tooltip-color);
   content: attr(title);
   font-family: Outfit;
   font-size: 14px;
@@ -34,4 +34,12 @@
   top: 35px;
   white-space: nowrap;
   z-index: 1;
+}
+
+.tooltip[data-error="true"] {
+  --tooltip-color: #f25700;
+}
+
+.tooltip[data-error="false"] {
+  --tooltip-color: var(--theme-grey-text);
 }

@@ -5,6 +5,7 @@ import Register from "./pages/onboarding/Register";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { ThemeProvider } from "@mui/material/styles";
 import theme from "./constants/theme";
+import Onboarding from "./pages/onboarding/Onboarding";
 
 function App() {
   return (
@@ -15,6 +16,7 @@ function App() {
             <Route path="/" element={<LandingPage />} />
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
+            <Route path="/onboarding" element={<Onboarding />} />
           </Routes>
         </Router>
       </ThemeProvider>
