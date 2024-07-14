@@ -11,6 +11,10 @@ import AboutYourVenue from "./components/AboutYourVenue";
 import MultiChipSelector from "./components/MultiChipSelector";
 import MessageCard from "./components/MessageCard";
 import TickGreenBadgeIcon from "../../assets/icons/TickGreenBadgeIcon";
+import LabelledRadioGroup from "./components/LabelledRadioGroup";
+import RestaurantCard from "./components/RestaurantCard";
+import VenueCard from "./components/VenueCard";
+import GradientBlob from "../../components/GradientBlob";
 
 function Onboarding() {
   const [activeStep, setActiveStep] = useState(0);
@@ -69,7 +73,7 @@ function Onboarding() {
   return (
     <>
       <ResponsiveAppBar />
-      <LinearProgressBar value={(activeStep / maxSteps) * 100} />
+      <LinearProgressBar value={((activeStep + 2) / (maxSteps + 2)) * 100} />
       <div
         style={{
           backgroundImage: `url(${backgroundIcon})`,
@@ -116,35 +120,38 @@ function Onboarding() {
                   fontWeight: "500",
                   textAlign: "center",
                   color: "grey.text",
+                  mb: 5,
                 }}
               >
                 This will help us find a better plan for you
               </Typography>
-              <Button
-                variant="contained"
-                startIcon={<CouponIcon />}
-                sx={{
-                  py: 1,
-                  backgroundColor: "green.light",
-                  color: "green.text",
-                  textTransform: "none",
-                  mt: "1rem",
-                  boxShadow: "none",
-                  "&:hover": {
-                    backgroundColor: "rgba(3, 159, 141, 0.2)",
-                  },
-                }}
-                fullWidth
-              >
-                Start your Free 6 Month Trial
-              </Button>
+              {activeStep !== 1 && (
+                <Button
+                  variant="contained"
+                  startIcon={<CouponIcon />}
+                  sx={{
+                    py: 1,
+                    backgroundColor: "green.light",
+                    color: "green.text",
+                    textTransform: "none",
+                    mt: "1rem",
+                    boxShadow: "none",
+                    "&:hover": {
+                      backgroundColor: "rgba(3, 159, 141, 0.2)",
+                    },
+                  }}
+                  fullWidth
+                >
+                  Start your Free 6 Month Trial
+                </Button>
+              )}
             </Box>
           )}
           {/* Type Of Venue Card I */}
           {activeStep === 0 && (
-            <Box sx={{ width: { xs: "100%", md: "60%" } }}>
+            <Box sx={{ width: { xs: "100%", md: "45%" } }}>
               <TypeOfVenue
-                title={"Type of Venues"}
+                title={"Type of Venue"}
                 description={
                   "Choose the type of Venue you would want to list this will help us find a suitable plan for your needs"
                 }
@@ -157,21 +164,33 @@ function Onboarding() {
             </Box>
           )}
 
-          {activeStep === 1 && <MultiChipSelector />}
+          {/* {activeStep === 1 && <MultiChipSelector />} */}
 
-          {activeStep === 2 && (
-            <AboutYourVenue
-              withAlcoholNumber={withAlcoholNumber}
-              withoutAlcoholNumber={withoutAlcoholNumber}
-              sameLocation={sameLocation}
-              quantityNumber={quantityNumber}
-              handleWithAlcoholNumberChange={handleWithAlcoholNumberChange}
-              handleWithoutAlcoholNumberChange={
-                handleWithoutAlcoholNumberChange
-              }
-              handleSameLocationChange={handleSameLocationChange}
-              handleQuantityNumberChange={handleQuantityNumberChange}
-            ></AboutYourVenue>
+          {activeStep === 1 && (
+            <>
+              <LabelledRadioGroup
+                label="Would you like to list your stay along with the venues for events?"
+                // Any other props needed for LabelledRadioGroup
+              />
+              <RestaurantCard
+                withAlcoholNumber={withAlcoholNumber}
+                withoutAlcoholNumber={withoutAlcoholNumber}
+                handleWithAlcoholNumberChange={handleWithAlcoholNumberChange}
+                handleWithoutAlcoholNumberChange={
+                  handleWithoutAlcoholNumberChange
+                }
+              />
+              <VenueCard
+                toolTipText={
+                  "Make sure all the venues are part of the same hotel for example ballroom, meeting room, beach, lawn"
+                }
+                title={"Venues"}
+                description={"All venues which are not restaurants"}
+                handleSameLocationChange={handleSameLocationChange}
+                quantityNumber={quantityNumber}
+                handleQuantityNumberChange={handleQuantityNumberChange}
+              />
+            </>
           )}
 
           {activeStep === 3 && (
@@ -220,6 +239,7 @@ function Onboarding() {
             </Button>
           </Box>
         )}
+        <GradientBlob></GradientBlob>
       </div>
     </>
   );

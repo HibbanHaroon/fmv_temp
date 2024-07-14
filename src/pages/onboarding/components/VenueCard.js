@@ -6,10 +6,12 @@ import LabelledRadioGroup from "./LabelledRadioGroup";
 
 function VenueCard({
   isLocation = false,
+  labelText,
   sameLocation = null,
   handleSameLocationChange = null,
   isOtherText = false,
   otherText = null,
+  toolTipText,
   quantityNumber,
   handleQuantityNumberChange,
   title,
@@ -32,7 +34,7 @@ function VenueCard({
     >
       {isLocation && (
         <LabelledRadioGroup
-          label={"Are your venues at the same location?"}
+          label={labelText}
           value={sameLocation}
           handleChange={handleSameLocationChange}
         />
@@ -86,7 +88,7 @@ function VenueCard({
             >
               {title}
             </Typography>
-            <Tooltip text={"Hello"} />
+            <Tooltip text={toolTipText} />
           </Box>
           <Typography
             variant="body1"
@@ -118,7 +120,7 @@ function VenueCard({
               width: "43%",
             }}
           >
-            <Typography
+            {/* <Typography
               variant="body1"
               gutterBottom
               fontWeight="400"
@@ -131,7 +133,7 @@ function VenueCard({
               }}
             >
               Quantity
-            </Typography>
+            </Typography> */}
             <TextfieldNumber
               value={quantityNumber}
               onChange={handleQuantityNumberChange}
