@@ -1,17 +1,23 @@
+// src/pages/onboarding/Register.js
+
 import * as React from "react";
 import { useState } from "react";
 import Container from "@mui/material/Container";
 import Box from "@mui/material/Box";
-import TextField from "@mui/material/TextField";
 import Checkbox from "@mui/material/Checkbox";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import Link from "@mui/material/Link";
 import ResponsiveAppBar from "../../components/ResponsiveAppBar";
+import OutlinedLabelledTextField from "../../components/OutlinedLabelledTextfield";
 import backgroundIcon from "../../assets/images/background_icon.svg";
+import { useTheme } from "@mui/material/styles";
+import { useNavigate } from "react-router-dom";
 
 function Register() {
+  const theme = useTheme();
+  const navigate = useNavigate();
   const [fullName, setFullName] = useState("");
   const [workMail, setWorkMail] = useState("");
   const [createPassword, setCreatePassword] = useState("");
@@ -20,7 +26,7 @@ function Register() {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    // osama ka part
+    navigate("/onboarding");
   };
 
   const isFormValid = () => {
@@ -50,119 +56,104 @@ function Register() {
             <Typography
               variant="h4"
               gutterBottom
-              sx={{ mt: 10, fontWeight: "bold" }}
+              sx={{
+                mt: { xs: 7, md: 10 },
+                fontWeight: "bold",
+                fontSize: { xs: "1.6rem" },
+              }}
             >
               Please fill in the details below to{" "}
-              <span style={{ color: "primary.main" }}>Register</span>
+              <span style={{ color: theme.palette.primary.main }}>
+                Register
+              </span>
             </Typography>
             <Typography
-              variant="h6"
+              variant="body1"
               gutterBottom
-              sx={{ mb: 10, color: "grey.text" }}
+              sx={{ mb: { md: 4 }, color: "grey.text" }}
             >
               Ready to list your venue?
             </Typography>
           </Box>
         </Container>
-        <Container maxWidth="sm">
-          <Box sx={{ mt: 7 }}>
+        <Container
+          maxWidth="sm"
+          sx={{ display: "flex", justifyContent: "center" }}
+        >
+          <Box sx={{ mt: 7, width: { md: "80%" } }}>
             <form onSubmit={handleSubmit}>
-              <TextField
-                required
-                fullWidth
+              <OutlinedLabelledTextField
                 id="fullName"
-                placeholder="Enter Full Name"
-                margin="normal"
-                variant="outlined"
                 label="Full Name"
+                placeholder="Enter Full Name"
+                type="text"
                 value={fullName}
                 onChange={(e) => setFullName(e.target.value)}
-                InputLabelProps={{ shrink: true }}
-                InputProps={{
-                  style: {
-                    borderRadius: "10px",
-                  },
-                }}
               />
 
-              <TextField
-                required
-                fullWidth
+              <OutlinedLabelledTextField
                 id="workMail"
-                placeholder="user@workapp.com"
-                margin="normal"
-                variant="outlined"
-                type="email"
                 label="Work Mail"
+                placeholder="user@workapp.com"
+                type="email"
                 value={workMail}
                 onChange={(e) => setWorkMail(e.target.value)}
-                InputLabelProps={{ shrink: true }}
-                InputProps={{
-                  style: {
-                    borderRadius: "10px",
-                  },
-                }}
               />
 
-              <TextField
-                required
-                fullWidth
+              <OutlinedLabelledTextField
                 id="createPassword"
-                placeholder="Create a password"
-                margin="normal"
-                variant="outlined"
-                type="password"
                 label="Create Password"
+                placeholder="Create a password"
+                type="password"
                 value={createPassword}
                 onChange={(e) => setCreatePassword(e.target.value)}
-                InputLabelProps={{ shrink: true }}
-                InputProps={{
-                  style: {
-                    borderRadius: "10px",
-                  },
-                }}
               />
 
-              <TextField
-                required
-                fullWidth
+              <OutlinedLabelledTextField
                 id="confirmPassword"
-                placeholder="Re-enter your password"
-                margin="normal"
-                variant="outlined"
-                type="password"
                 label="Confirm Password"
+                placeholder="Re-enter your password"
+                type="password"
                 value={confirmPassword}
                 onChange={(e) => setConfirmPassword(e.target.value)}
-                InputLabelProps={{ shrink: true }}
-                InputProps={{
-                  style: {
-                    borderRadius: "10px",
-                  },
-                }}
               />
-              <Box sx={{ mb: 7 }}>
+
+              <Box sx={{ mb: { xs: 2, md: 7 } }}>
                 <FormControlLabel
                   control={
                     <Checkbox
                       checked={checked}
                       onChange={(e) => setChecked(e.target.checked)}
+                      sx={{
+                        transform: "scale(1.5)", // Adjust the size of the checkbox
+                        marginRight: "10px", // Add some space between the checkbox and label
+                        color: "grey.border",
+                      }}
                     />
                   }
                   label={
                     <Typography
-                      variant="body1"
+                      variant="body1" // Change this to match the text field size
                       sx={{
                         color: "grey.text",
-                        fontSize: "1.2rem",
+                        fontSize: "1rem",
+                        textAlign: { xs: "left" },
                       }}
                     >
                       I agree to the{" "}
-                      <Link href="#" color="primary">
+                      <Link
+                        href="#"
+                        color="primary"
+                        sx={{ textDecoration: "none" }}
+                      >
                         Terms & Conditions
                       </Link>{" "}
                       and{" "}
-                      <Link href="#" color="primary">
+                      <Link
+                        href="#"
+                        color="primary"
+                        sx={{ textDecoration: "none" }}
+                      >
                         Privacy Policy
                       </Link>
                     </Typography>
@@ -176,7 +167,7 @@ function Register() {
                 fullWidth
                 size="large"
                 sx={{
-                  mb: 3,
+                  mb: { xs: 1, md: 3 },
                   borderRadius: "8px",
                   mt: 2,
                   backgroundColor: isFormValid()
@@ -192,10 +183,13 @@ function Register() {
 
             <Typography
               variant="body2"
-              sx={{ fontSize: "1.4rem", mt: 2, color: "grey.text" }}
+              sx={{
+                fontSize: "1rem",
+                color: "grey.text",
+              }}
             >
               Already have an account?{" "}
-              <Link href="#" color="primary">
+              <Link href="#" color="primary" sx={{ textDecoration: "none" }}>
                 Login.
               </Link>
             </Typography>

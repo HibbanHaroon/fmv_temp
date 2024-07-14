@@ -1,0 +1,46 @@
+.tooltip {
+  margin-left: 1rem;
+}
+
+.tooltip:hover:before {
+  background-color: #fff;
+  border-left: 1px solid #d9d9d9;
+  border-top: 1px solid #d9d9d9;
+  bottom: 0;
+  content: "";
+  display: block;
+  height: 16px;
+  overflow: hidden;
+  position: absolute;
+  top: 28px;
+  transform: rotate(45deg);
+  width: 16px;
+  z-index: 2;
+  padding: 0;
+}
+
+.tooltip:hover:after {
+  background-color: #fff;
+  border-radius: 16px;
+  border: 1px solid #dddddd;
+  color: var(--tooltip-color);
+  content: attr(data-tooltip);
+  font-family: Outfit;
+  font-size: 14px;
+  left: -40px;
+  padding: 16px;
+  position: absolute;
+  top: 35px;
+  white-space: wrap;
+  z-index: 1;
+  width: 15rem;
+  text-transform: none;
+}
+
+.tooltip[data-error="true"] {
+  --tooltip-color: #f25700;
+}
+
+.tooltip[data-error="false"] {
+  --tooltip-color: var(--theme-grey-text);
+}

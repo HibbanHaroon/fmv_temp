@@ -15,8 +15,10 @@ function ResponsiveAppBar() {
             src={logo}
             alt="logo"
             sx={{
-              height: 40,
+              height: 50,
               marginRight: 2,
+              py: 2,
+              pl: 4,
             }}
           />
         </Toolbar>

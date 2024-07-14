@@ -1,0 +1,23 @@
+{
+  "dev": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-findmyvenue-dev-0b80b-authRole",
+      "UnauthRoleArn": "arn:aws:iam::211125483730:role/amplify-findmyvenue-dev-0b80b-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::211125483730:role/amplify-findmyvenue-dev-0b80b-authRole",
+      "Region": "us-east-1",
+      "DeploymentBucketName": "amplify-findmyvenue-dev-0b80b-deployment",
+      "UnauthRoleName": "amplify-findmyvenue-dev-0b80b-unauthRole",
+      "StackName": "amplify-findmyvenue-dev-0b80b",
+      "StackId": "arn:aws:cloudformation:us-east-1:211125483730:stack/amplify-findmyvenue-dev-0b80b/61c28a30-3f69-11ef-a425-0e0501d03a23",
+      "AmplifyAppId": "dt5xfrwu4xkdh"
+    },
+    "categories": {
+      "hosting": {
+        "amplifyhosting": {
+          "appId": "dt5xfrwu4xkdh",
+          "type": "manual"
+        }
+      }
+    }
+  }
+}
