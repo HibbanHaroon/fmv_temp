@@ -1,11 +1,23 @@
 import { Box } from "@mui/material";
 
-function GradientBlob({ position, top = 0 }) {
-  const getPositionStyle = () => {
-    if (position === "left") {
+function GradientBlob({
+  positionHorizontal = "left",
+  positionVertical = "top",
+}) {
+  const getPositionHorizontalStyle = () => {
+    if (positionHorizontal === "left") {
       return { left: 0 };
-    } else if (position === "right") {
+    } else if (positionHorizontal === "right") {
       return { right: 0 };
+    }
+    return {};
+  };
+
+  const getPositionVerticalStyle = () => {
+    if (positionVertical === "top") {
+      return { top: 0 };
+    } else if (positionVertical === "bottom") {
+      return { bottom: 0 };
     }
     return {};
   };
@@ -19,8 +31,8 @@ function GradientBlob({ position, top = 0 }) {
         width: "200px",
         height: "200px",
         position: "absolute",
-        top: top,
-        ...getPositionStyle(),
+        ...getPositionHorizontalStyle(),
+        ...getPositionVerticalStyle(),
       }}
     ></Box>
   );

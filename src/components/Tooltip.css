@@ -10,7 +10,6 @@
   content: "";
   display: block;
   height: 16px;
-  left: -8px;
   overflow: hidden;
   position: absolute;
   top: 28px;
@@ -32,8 +31,9 @@
   padding: 16px;
   position: absolute;
   top: 35px;
-  white-space: nowrap;
+  white-space: wrap;
   z-index: 1;
+  width: 15rem;
 }
 
 .tooltip[data-error="true"] {

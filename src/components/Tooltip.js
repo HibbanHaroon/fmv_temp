@@ -8,7 +8,11 @@ function Tooltip({ text, error = false }) {
 
   return (
     <Box sx={{ position: "relative" }}>
-      <div className="tooltip" data-tooltip={text} data-error={error}>
+      <div
+        className="tooltip"
+        data-tooltip={text}
+        data-error={error}
+      >
         <IconButton sx={{ p: 0 }}>
           <svg
             width="24"

@@ -19,16 +19,16 @@ function VenueCard({
 }) {
   const theme = useTheme();
   return (
-    <Card
-      sx={{
+    <div
+      style={{
         display: "flex",
         flexDirection: "column",
         backgroundColor: "white",
         width: "90%",
-        p: "2rem",
-        mt: "2rem",
+        padding: "2rem",
+        marginTop: "2rem",
         border: `2px solid ${theme.palette.grey.border}`,
-        borderRadius: 3,
+        borderRadius: "12px",
         boxShadow: "none",
       }}
     >
@@ -141,7 +141,7 @@ function VenueCard({
           </Box>
         </Box>
       </Box>
-    </Card>
+    </div>
   );
 }
 

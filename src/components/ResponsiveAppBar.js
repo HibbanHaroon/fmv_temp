@@ -7,7 +7,7 @@ import logo from "../assets/images/logo.svg";
 
 function ResponsiveAppBar() {
   return (
-    <AppBar position="static" sx={{ height: 80 }}>
+    <AppBar position="static">
       <Container maxWidth="xl">
         <Toolbar disableGutters>
           <Box
@@ -15,8 +15,10 @@ function ResponsiveAppBar() {
             src={logo}
             alt="logo"
             sx={{
-              height: 40,
+              height: 50,
               marginRight: 2,
+              py: 2,
+              pl: 4,
             }}
           />
         </Toolbar>

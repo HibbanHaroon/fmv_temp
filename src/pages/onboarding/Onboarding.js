@@ -5,6 +5,7 @@ import LinearProgressBar from "./components/LinearProgressBar";
 import KeyboardBackspaceIcon from "@mui/icons-material/KeyboardBackspace";
 import backgroundIcon from "../../assets/images/background_icon.svg";
 import { ReactComponent as CouponIcon } from "../../assets/images/coupon_icon.svg";
+import { useMediaQuery } from "@mui/material";
 
 import TypeOfVenue from "./components/TypeOfVenue";
 import AboutYourVenue from "./components/AboutYourVenue";
@@ -23,6 +24,7 @@ function Onboarding() {
   const [withoutAlcoholNumber, setWithoutAlcoholNumber] = useState(0);
   const [quantityNumber, setQuantityNumber] = useState(0);
   const [selectedButton, setSelectedButton] = useState(null);
+  const isMobile = useMediaQuery((theme) => theme.breakpoints.down("sm"));
 
   const maxSteps = 4;
 
@@ -82,7 +84,7 @@ function Onboarding() {
           backgroundPosition: "right",
           marginTop: "3rem",
           marginBottom: "3rem",
-          minHeight: "60vh",
+          minHeight: "70vh",
           display: activeStep === 0 ? "flex" : "block",
           justifyContent: activeStep === 0 ? "center" : "initial",
           alignItems: activeStep === 0 ? "center" : "initial",
@@ -239,7 +241,22 @@ function Onboarding() {
             </Button>
           </Box>
         )}
-        <GradientBlob></GradientBlob>
+        {!isMobile && (
+          <>
+            <GradientBlob
+              positionHorizontal="left"
+              positionVertical="top"
+            ></GradientBlob>
+            <GradientBlob
+              positionHorizontal="left"
+              positionVertical="bottom"
+            ></GradientBlob>
+            <GradientBlob
+              positionHorizontal="right"
+              positionVertical="bottom"
+            ></GradientBlob>
+          </>
+        )}
       </div>
     </>
   );
