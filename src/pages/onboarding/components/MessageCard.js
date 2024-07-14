@@ -21,12 +21,12 @@ const MessageCard = ({
         backgroundColor: theme.palette.common.white,
         borderRadius: "8px",
         p: 2,
-        px: 8,
+        px: { xs: 2, md: 8 },
         display: "flex",
         flexDirection: "column",
         justifyContent: "center",
         alignItems: "center",
-        mt: 4,
+        mt: { xs: 10, md: 4 },
       }}
     >
       <Box>{loaderComponent}</Box>
@@ -42,10 +42,10 @@ const MessageCard = ({
       >
         {primaryText && (
           <Typography
-            variant="body1"
+            variant="h4"
             sx={{
               fontWeight: "600",
-              fontSize: { xs: "1.84rem", md: "1.9rem" },
+              fontSize: { xs: "1.5rem", md: "1.9rem" },
             }}
           >
             {primaryText}

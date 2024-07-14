@@ -1,30 +1,25 @@
 import React, { useState } from "react";
-import { Container, Box, Button, Typography } from "@mui/material";
+import { Container, Box, Button } from "@mui/material";
 import ResponsiveAppBar from "../../components/ResponsiveAppBar";
 import LinearProgressBar from "./components/LinearProgressBar";
 import KeyboardBackspaceIcon from "@mui/icons-material/KeyboardBackspace";
 import backgroundIcon from "../../assets/images/background_icon.svg";
-import { ReactComponent as CouponIcon } from "../../assets/images/coupon_icon.svg";
 import { useMediaQuery } from "@mui/material";
 
 import TypeOfVenue from "./components/TypeOfVenue";
-import AboutYourVenue from "./components/AboutYourVenue";
-import MultiChipSelector from "./components/MultiChipSelector";
-import MessageCard from "./components/MessageCard";
-import TickGreenBadgeIcon from "../../assets/icons/TickGreenBadgeIcon";
-import LabelledRadioGroup from "./components/LabelledRadioGroup";
-import RestaurantCard from "./components/RestaurantCard";
-import VenueCard from "./components/VenueCard";
 import GradientBlob from "../../components/GradientBlob";
+import HotelFlow from "./flows/HotelFlow";
+import VenueFlow from "./flows/VenueFlow";
 
 function Onboarding() {
   const [activeStep, setActiveStep] = useState(0);
-  const [sameLocation, setSameLocation] = useState("yes");
-  const [withAlcoholNumber, setWithAlcoholNumber] = useState(0);
-  const [withoutAlcoholNumber, setWithoutAlcoholNumber] = useState(0);
-  const [quantityNumber, setQuantityNumber] = useState(0);
+  const [showBackButton, setShowBackButton] = useState(true);
   const [selectedButton, setSelectedButton] = useState(null);
   const isMobile = useMediaQuery((theme) => theme.breakpoints.down("sm"));
+
+  // For Flows
+  const [displayHotelFlow, setDisplayHotelFlow] = useState(false);
+  const [displayVenueFlow, setDisplayVenueFlow] = useState(false);
 
   const maxSteps = 4;
 
@@ -37,39 +32,27 @@ function Onboarding() {
     setActiveStep((prevActiveStep) => prevActiveStep - 1);
   };
 
-  // const handleStepChange = (step) => {
-  //   setActiveStep(step);
-  // };
-
-  const handleWithAlcoholNumberChange = (event) => {
-    setWithAlcoholNumber(event.target.value);
-  };
-
-  const handleWithoutAlcoholNumberChange = (event) => {
-    setWithoutAlcoholNumber(event.target.value);
-  };
-
-  const handleSameLocationChange = (event) => {
-    setSameLocation(event.target.value);
-  };
-
-  const handleQuantityNumberChange = (event) => {
-    setQuantityNumber(event.target.value);
-  };
-
+  // For Hotel Flow
   const handleButton1Click = () => {
     setSelectedButton(1);
+    setDisplayHotelFlow(true);
     handleNext();
   };
 
+  // For Venue Flow
   const handleButton2Click = () => {
     setSelectedButton(2);
+    setDisplayVenueFlow(true);
     handleNext();
   };
 
   const handleContinue = () => {
     console.log(activeStep);
     handleNext();
+  };
+
+  const toggleBackButton = (show) => {
+    setShowBackButton(show);
   };
 
   return (
@@ -94,62 +77,14 @@ function Onboarding() {
           sx={{
             display: "flex",
             flexDirection: "column",
+            justifyContent: "center",
             alignItems: "center",
             width: { xs: "90%", md: "55%" },
+            // p: 0,
+            // m: 0,
           }}
         >
-          {/* Not visible for step 0 */}
-          {activeStep !== 0 && (
-            <Box sx={{ width: "100%" }}>
-              <Typography
-                variant="h5"
-                variantMapping={{
-                  xs: "h5",
-                  md: "h4",
-                }}
-                gutterBottom
-                sx={{
-                  mt: { xs: 3, md: 3 },
-                  fontWeight: "600",
-                }}
-              >
-                Tell us more about your venue
-              </Typography>
-              <Typography
-                variant="body1"
-                gutterBottom
-                sx={{
-                  fontWeight: "500",
-                  textAlign: "center",
-                  color: "grey.text",
-                  mb: 5,
-                }}
-              >
-                This will help us find a better plan for you
-              </Typography>
-              {activeStep !== 1 && (
-                <Button
-                  variant="contained"
-                  startIcon={<CouponIcon />}
-                  sx={{
-                    py: 1,
-                    backgroundColor: "green.light",
-                    color: "green.text",
-                    textTransform: "none",
-                    mt: "1rem",
-                    boxShadow: "none",
-                    "&:hover": {
-                      backgroundColor: "rgba(3, 159, 141, 0.2)",
-                    },
-                  }}
-                  fullWidth
-                >
-                  Start your Free 6 Month Trial
-                </Button>
-              )}
-            </Box>
-          )}
-          {/* Type Of Venue Card I */}
+          {/* Type Of Venue Card*/}
           {activeStep === 0 && (
             <Box sx={{ width: { xs: "100%", md: "45%" } }}>
               <TypeOfVenue
@@ -166,63 +101,18 @@ function Onboarding() {
             </Box>
           )}
 
+          {displayHotelFlow && (
+            <HotelFlow
+              activeStep={activeStep}
+              handleContinue={handleContinue}
+              toggleBackButton={toggleBackButton}
+            ></HotelFlow>
+          )}
+          {displayVenueFlow && <VenueFlow activeStep={activeStep}></VenueFlow>}
+
           {/* {activeStep === 1 && <MultiChipSelector />} */}
-
-          {activeStep === 1 && (
-            <>
-              <LabelledRadioGroup
-                label="Would you like to list your stay along with the venues for events?"
-                // Any other props needed for LabelledRadioGroup
-              />
-              <RestaurantCard
-                withAlcoholNumber={withAlcoholNumber}
-                withoutAlcoholNumber={withoutAlcoholNumber}
-                handleWithAlcoholNumberChange={handleWithAlcoholNumberChange}
-                handleWithoutAlcoholNumberChange={
-                  handleWithoutAlcoholNumberChange
-                }
-              />
-              <VenueCard
-                toolTipText={
-                  "Make sure all the venues are part of the same hotel for example ballroom, meeting room, beach, lawn"
-                }
-                title={"Venues"}
-                description={"All venues which are not restaurants"}
-                handleSameLocationChange={handleSameLocationChange}
-                quantityNumber={quantityNumber}
-                handleQuantityNumberChange={handleQuantityNumberChange}
-              />
-            </>
-          )}
-
-          {activeStep === 3 && (
-            <MessageCard
-              loaderComponent={<TickGreenBadgeIcon />}
-              primaryText="Payment Successful"
-              secondaryText="Creating your dashboard experience..."
-            />
-          )}
-
-          {activeStep >= 1 && (
-            <Box sx={{ width: "100%", mt: 2 }}>
-              <Button
-                variant="contained"
-                sx={{
-                  backgroundColor: "primary.main",
-                  color: "white",
-                  textTransform: "none",
-                  mt: "1rem",
-                  boxShadow: "none",
-                  width: { xs: "100%", md: "70%" },
-                }}
-                onClick={handleContinue}
-              >
-                Continue
-              </Button>
-            </Box>
-          )}
         </Container>
-        {activeStep !== 0 && (
+        {showBackButton && activeStep !== 0 && (
           <Box
             sx={{
               display: "flex",

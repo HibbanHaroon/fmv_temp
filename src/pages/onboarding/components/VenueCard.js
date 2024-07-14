@@ -1,4 +1,4 @@
-import { Card, Box, Typography } from "@mui/material";
+import { Box, Typography } from "@mui/material";
 import Tooltip from "../../../components/Tooltip";
 import TextfieldNumber from "./TextfieldNumber";
 import { useTheme } from "@mui/material/styles";
@@ -24,7 +24,7 @@ function VenueCard({
         display: "flex",
         flexDirection: "column",
         backgroundColor: "white",
-        width: "90%",
+        width: { xs: "80%", md: "90%" },
         padding: "2rem",
         marginTop: "2rem",
         border: `2px solid ${theme.palette.grey.border}`,

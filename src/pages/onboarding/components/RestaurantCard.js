@@ -1,8 +1,9 @@
-import { Container, Box, Button, Typography, Card } from "@mui/material";
+import { Box, Typography, Card } from "@mui/material";
 import TextfieldNumber from "./TextfieldNumber";
 import { useTheme } from "@mui/material/styles";
 
 function RestaurantCard({
+  description,
   withAlcoholNumber,
   withoutAlcoholNumber,
   handleWithAlcoholNumberChange,
@@ -16,7 +17,7 @@ function RestaurantCard({
         flexDirection: { xs: "column", md: "row" },
         justifyContent: "space-between",
         backgroundColor: "white",
-        width: "90%",
+        width: { xs: "80%", md: "90%" },
         p: "2rem",
         mt: "2rem",
         border: `2px solid ${theme.palette.grey.border}`,
@@ -51,7 +52,7 @@ function RestaurantCard({
             color: "grey.text",
           }}
         >
-          Cafes, bars, restaurants and food places.
+          {description}
         </Typography>
       </Box>
       <Box
