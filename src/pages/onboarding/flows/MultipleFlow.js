@@ -30,6 +30,7 @@ function MultipleFlow({ activeStep, handleContinue, toggleBackButton }) {
 
   let isRestaurantsSelected = false;
   let hasOtherSelections = false;
+  let isOnlyOneSelection = false;
   let isKidsPlayAreaSelected = false;
 
   const handleWithAlcoholNumberChange = (event) => {
@@ -62,11 +63,12 @@ function MultipleFlow({ activeStep, handleContinue, toggleBackButton }) {
 
   useEffect(() => {
     isRestaurantsSelected = selectedChips.includes("Restaurants, Cafe's & Bar");
-    hasOtherSelections = selectedChips.length > 1;
+    isOnlyOneSelection = selectedChips.length == 1;
+    hasOtherSelections = selectedChips.length >= 1;
     isKidsPlayAreaSelected = selectedChips.includes("Kids Play Area");
 
     // Using these setFunctions as radio buttons, only one true at a time.
-    if (isRestaurantsSelected && !hasOtherSelections) {
+    if (isRestaurantsSelected && isOnlyOneSelection) {
       setRestaurantsView(true);
       setRestaurantVenueView(false);
       setVenueView(false);
@@ -95,7 +97,7 @@ function MultipleFlow({ activeStep, handleContinue, toggleBackButton }) {
       setRestaurantVenueView(false);
       setVenueView(true);
       setKidsVenueView(false);
-    } else if (isKidsPlayAreaSelected && !hasOtherSelections) {
+    } else if (isKidsPlayAreaSelected && !isRestaurantsSelected) {
       setRestaurantsView(false);
       setRestaurantVenueView(false);
       setVenueView(false);
@@ -135,20 +137,26 @@ function MultipleFlow({ activeStep, handleContinue, toggleBackButton }) {
         <Box sx={{ width: "100%" }}>
           <TitleDescriptionCoupon isCoupon={true} />
           {/* Remove Same Location Radio Group if Only Restaurant is selected */}
-          <RestaurantCard
-            isSameLocation={restaurantsView ? true : false}
-            sameLocation={restaurantsView ? sameLocation : null}
-            handleSameLocationChange={
-              restaurantsView ? handleSameLocationChange : null
-            }
-            description={"Cafes, bars, restaurants and food places."}
-            withAlcoholNumber={withAlcoholNumber}
-            withoutAlcoholNumber={withoutAlcoholNumber}
-            handleWithAlcoholNumberChange={handleWithAlcoholNumberChange}
-            handleWithoutAlcoholNumberChange={handleWithoutAlcoholNumberChange}
-          />
+          {/* Display Restaurant View only if Restaurants View or Restaurants Venue View */}
+          {(restaurantsView || restaurantsVenueView) && (
+            <RestaurantCard
+              isSameLocation={restaurantsView ? true : false}
+              sameLocation={restaurantsView ? sameLocation : null}
+              handleSameLocationChange={
+                restaurantsView ? handleSameLocationChange : null
+              }
+              description={"Cafes, bars, restaurants and food places."}
+              withAlcoholNumber={withAlcoholNumber}
+              withoutAlcoholNumber={withoutAlcoholNumber}
+              handleWithAlcoholNumberChange={handleWithAlcoholNumberChange}
+              handleWithoutAlcoholNumberChange={
+                handleWithoutAlcoholNumberChange
+              }
+            />
+          )}
+
           {/* Display Venue Card for Restaurant & Venue View */}
-          {restaurantsVenueView && (
+          {(restaurantsVenueView || venueView) && (
             <VenueCard
               isLocation={true}
               labelText={"Are your venues at the same location?"}
