@@ -36,6 +36,12 @@ function VenueFlow({ activeStep, handleContinue, toggleBackButton }) {
             }
             buttonLabel1={"Individual Venue"}
             buttonLabel2={"Multiple Venue"}
+            tooltip1={
+              "An independent event venue, is a dedicated space designed to host various events and gatherings, not affliated  with restaurant services. These venues are  characterized by their unique atmosphere, artistic ambiance, and flexible layout, making them ideal for a wide range of occasions"
+            }
+            tooltip2={
+              "A multi-venue is a complex or facility that houses multiple event spaces within the same location, excluding any areas designated for restaurant services."
+            }
             handleButton1Click={handleButton1Click}
             handleButton2Click={handleButton2Click}
             selectedButton={selectedButton}
@@ -43,7 +49,13 @@ function VenueFlow({ activeStep, handleContinue, toggleBackButton }) {
         </Box>
       )}
 
-      {displayIndividualFlow && <IndividualFlow />}
+      {displayIndividualFlow && (
+        <IndividualFlow
+          activeStep={activeStep}
+          handleContinue={handleContinue}
+          toggleBackButton={toggleBackButton}
+        />
+      )}
       {displayMultipleFlow && (
         <MultipleFlow
           activeStep={activeStep}

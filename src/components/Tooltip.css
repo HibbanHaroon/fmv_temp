@@ -34,6 +34,7 @@
   white-space: wrap;
   z-index: 1;
   width: 15rem;
+  text-transform: none;
 }
 
 .tooltip[data-error="true"] {

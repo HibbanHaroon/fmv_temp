@@ -1,18 +1,41 @@
-import * as React from "react";
+import React, { useState } from "react";
 import { Chip, Box } from "@mui/material";
 import DoneIcon from "@mui/icons-material/Done";
 import AddIcon from "@mui/icons-material/Add";
 import { useTheme } from "@mui/material/styles";
 
-export default function CustomIconChips({ chipLabels = [], onChipsChange }) {
+export default function CustomIconChips({
+  chipLabels = [],
+  onChipsChange,
+  isSelectOneChip = false,
+}) {
   const theme = useTheme();
-  const [selectedChips, setSelectedChips] = React.useState(
+  const [selectedChips, setSelectedChips] = useState(
     new Array(chipLabels.length).fill(false)
   );
 
   const handleClick = (index) => {
-    const updatedSelectedChips = [...selectedChips];
-    updatedSelectedChips[index] = !updatedSelectedChips[index];
+    let updatedSelectedChips;
+
+    if (isSelectOneChip) {
+      if (selectedChips[index]) {
+        updatedSelectedChips = new Array(chipLabels.length).fill(false);
+      } else {
+        updatedSelectedChips = new Array(chipLabels.length).fill(false);
+        updatedSelectedChips[index] = true;
+      }
+    } else {
+      updatedSelectedChips = [...selectedChips];
+      updatedSelectedChips[index] = !updatedSelectedChips[index];
+    }
+
+    if (
+      isSelectOneChip &&
+      updatedSelectedChips.filter((chip) => chip).length > 1
+    ) {
+      return;
+    }
+
     setSelectedChips(updatedSelectedChips);
     onChipsChange(updatedSelectedChips);
   };

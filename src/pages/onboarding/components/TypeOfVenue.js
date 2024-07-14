@@ -10,6 +10,8 @@ function TypeOfVenue({
   description,
   buttonLabel1,
   buttonLabel2,
+  tooltip1,
+  tooltip2,
   selectedButton,
   handleButton1Click,
   handleButton2Click,
@@ -73,6 +75,7 @@ function TypeOfVenue({
                 }
               />
             }
+            tooltip={tooltip1}
             isSelectedButton={selectedButton === 1}
             handleButtonClick={handleButton1Click}
           />
@@ -89,6 +92,7 @@ function TypeOfVenue({
                 }
               />
             }
+            tooltip={tooltip2}
             isSelectedButton={selectedButton === 2}
             handleButtonClick={handleButton2Click}
           />

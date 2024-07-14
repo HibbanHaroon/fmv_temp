@@ -16,6 +16,7 @@ function MultipleFlow({ activeStep, handleContinue, toggleBackButton }) {
   const [venueType, setVenueType] = useState("no");
   const [withAlcoholNumber, setWithAlcoholNumber] = useState(0);
   const [withoutAlcoholNumber, setWithoutAlcoholNumber] = useState(0);
+  //   Venue Quantity Number
   const [quantityNumber, setQuantityNumber] = useState(0);
   const [selectedChips, setSelectedChips] = useState([]);
 
@@ -235,6 +236,9 @@ function MultipleFlow({ activeStep, handleContinue, toggleBackButton }) {
           secondaryText={"Please wait for a moment..."}
         />
       )}
+      {/* 6 - Payment */}
+      {/* 7 - Billing */}
+      {/* 8 - Payment Message Card */}
       {activeStep !== 5 && (
         <Box sx={{ width: "100%", mt: 2 }}>
           <Button

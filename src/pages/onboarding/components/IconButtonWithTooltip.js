@@ -6,6 +6,7 @@ import { useTheme } from "@mui/material/styles";
 function IconButtonWithTooltip({
   label,
   icon,
+  tooltip,
   isSelectedButton,
   handleButtonClick,
 }) {
@@ -57,7 +58,7 @@ function IconButtonWithTooltip({
         {label}
       </Typography>
       <Box sx={{ marginLeft: "auto" }}>
-        <Tooltip text="Hello" />
+        <Tooltip text={tooltip} />
       </Box>
     </Button>
   );

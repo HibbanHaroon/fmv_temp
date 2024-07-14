@@ -3,7 +3,7 @@ import chipLabels from "../../../constants/chipLabels";
 import CustomIconChips from "./CustomIconChips";
 import { Box, Typography, useTheme } from "@mui/material";
 
-function MultiChipSelector({ onSelectedChipsChange }) {
+function MultiChipSelector({ onSelectedChipsChange, isSelectOneChip = false }) {
   const theme = useTheme();
 
   const handleChipsChange = (selectedChips) => {
@@ -41,6 +41,7 @@ function MultiChipSelector({ onSelectedChipsChange }) {
         <CustomIconChips
           chipLabels={chipLabels}
           onChipsChange={handleChipsChange}
+          isSelectOneChip={isSelectOneChip}
         />
       </Box>
     </Box>

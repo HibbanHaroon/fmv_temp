@@ -105,6 +105,12 @@ function Onboarding() {
                 }
                 buttonLabel1={"Hotel stay + Venues"}
                 buttonLabel2={"Venue"}
+                tooltip1={
+                  "An establishment that offers lodging for group reservations, along with providing venue spaces such as ballrooms for guests to host events, and may also include an onsite restaurant managed by the hotel."
+                }
+                tooltip2={
+                  "A multi-venue is a complex or facility that houses multiple event spaces within the same location, excluding any areas designated for restaurant services."
+                }
                 handleButton1Click={handleButton1Click}
                 handleButton2Click={handleButton2Click}
                 selectedButton={selectedButton}

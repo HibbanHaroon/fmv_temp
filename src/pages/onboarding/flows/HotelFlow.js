@@ -75,6 +75,9 @@ function HotelFlow({ activeStep, handleContinue, toggleBackButton }) {
           secondaryText={"Please wait for a moment..."}
         />
       )}
+      {/* 3 - Payment */}
+      {/* 4 - Billing*/}
+      {/* 5 - Payment Message Card*/}
       {activeStep !== 2 && (
         <Box sx={{ width: "100%", mt: 2 }}>
           <Button
