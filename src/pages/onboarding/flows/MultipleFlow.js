@@ -156,7 +156,7 @@ function MultipleFlow({ activeStep, handleContinue, toggleBackButton }) {
           )}
 
           {/* Display Venue Card for Restaurant & Venue View */}
-          {(restaurantsVenueView || venueView) && (
+          {(restaurantsVenueView || venueView || kidsVenueView) && (
             <VenueCard
               isLocation={true}
               labelText={"Are your venues at the same location?"}
@@ -171,8 +171,10 @@ function MultipleFlow({ activeStep, handleContinue, toggleBackButton }) {
               }
               quantityNumber={quantityNumber}
               handleQuantityNumberChange={handleQuantityNumberChange}
-              title={"Venues"}
-              description={"Ballroom, Dance Studio +4"}
+              title={kidsVenueView ? "Unqiue Venue Branches" : "Venues"}
+              description={
+                kidsVenueView ? "Kid's Area" : "Ballroom, Dance Studio +4"
+              }
             />
           )}
         </Box>
