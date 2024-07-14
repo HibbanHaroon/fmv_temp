@@ -4,7 +4,7 @@ import DoneIcon from "@mui/icons-material/Done";
 import AddIcon from "@mui/icons-material/Add";
 import { useTheme } from "@mui/material/styles";
 
-export default function CustomIconChips({ chipLabels = [] }) {
+export default function CustomIconChips({ chipLabels = [], onChipsChange }) {
   const theme = useTheme();
   const [selectedChips, setSelectedChips] = React.useState(
     new Array(chipLabels.length).fill(false)
@@ -14,6 +14,7 @@ export default function CustomIconChips({ chipLabels = [] }) {
     const updatedSelectedChips = [...selectedChips];
     updatedSelectedChips[index] = !updatedSelectedChips[index];
     setSelectedChips(updatedSelectedChips);
+    onChipsChange(updatedSelectedChips);
   };
 
   return (

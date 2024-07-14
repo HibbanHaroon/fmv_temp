@@ -14,6 +14,7 @@ function LabelledRadioGroup({ label, value, handleChange }) {
         display: "flex",
         justifyContent: "space-between",
         flexDirection: { xs: "column", md: "row" },
+        width: "100%",
       }}
     >
       <Typography

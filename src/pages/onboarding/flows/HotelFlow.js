@@ -33,10 +33,18 @@ function HotelFlow({ activeStep, handleContinue, toggleBackButton }) {
   }, [activeStep, toggleBackButton]);
 
   return (
-    <Box sx={{ display: "flex", flexDirection: "column", width: "100%" }}>
+    <Box
+      sx={{
+        display: "flex",
+        flexDirection: "column",
+        width: "100%",
+        alignItems: "center",
+      }}
+    >
       {activeStep === 1 && (
         <Box sx={{ width: "100%" }}>
           <TitleDescriptionCoupon />
+          <Box sx={{ height: "2rem" }}></Box>
           <LabelledRadioGroup
             label={
               "Would you like to list your stay along with venues for events?"

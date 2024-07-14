@@ -25,7 +25,7 @@ function TitleDescriptionCoupon({ isCoupon = false }) {
           fontWeight: "500",
           textAlign: "center",
           color: "grey.text",
-          mb: 5,
+          mb: 1,
         }}
       >
         This will help us find a better plan for you
@@ -39,7 +39,8 @@ function TitleDescriptionCoupon({ isCoupon = false }) {
             backgroundColor: "green.light",
             color: "green.text",
             textTransform: "none",
-            mt: "1rem",
+            mt: 2,
+            mb: 2,
             boxShadow: "none",
             "&:hover": {
               backgroundColor: "rgba(3, 159, 141, 0.2)",

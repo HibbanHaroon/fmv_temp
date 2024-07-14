@@ -28,8 +28,15 @@ function Onboarding() {
   };
 
   const handleBack = () => {
-    console.log(activeStep);
-    setActiveStep((prevActiveStep) => prevActiveStep - 1);
+    setActiveStep((prevActiveStep) => {
+      const newStep = prevActiveStep - 1;
+      // If going back to step 0, reset the flows
+      if (newStep === 0) {
+        setDisplayHotelFlow(false);
+        setDisplayVenueFlow(false);
+      }
+      return newStep;
+    });
   };
 
   // For Hotel Flow
@@ -55,6 +62,10 @@ function Onboarding() {
     setShowBackButton(show);
   };
 
+  // Basically for both Type of venue views
+  const shouldCenterContent =
+    activeStep === 0 || (activeStep === 1 && displayVenueFlow === true);
+
   return (
     <>
       <ResponsiveAppBar />
@@ -68,9 +79,9 @@ function Onboarding() {
           marginTop: "3rem",
           marginBottom: "3rem",
           minHeight: "70vh",
-          display: activeStep === 0 ? "flex" : "block",
-          justifyContent: activeStep === 0 ? "center" : "initial",
-          alignItems: activeStep === 0 ? "center" : "initial",
+          display: shouldCenterContent ? "flex" : "block",
+          justifyContent: shouldCenterContent === 0 ? "center" : "initial",
+          alignItems: shouldCenterContent === 0 ? "center" : "initial",
         }}
       >
         <Container
@@ -108,7 +119,13 @@ function Onboarding() {
               toggleBackButton={toggleBackButton}
             ></HotelFlow>
           )}
-          {displayVenueFlow && <VenueFlow activeStep={activeStep}></VenueFlow>}
+          {displayVenueFlow && (
+            <VenueFlow
+              activeStep={activeStep}
+              handleContinue={handleContinue}
+              toggleBackButton={toggleBackButton}
+            ></VenueFlow>
+          )}
 
           {/* {activeStep === 1 && <MultiChipSelector />} */}
         </Container>
