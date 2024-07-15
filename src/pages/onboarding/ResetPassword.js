@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useNavigate,useLocation } from "react-router-dom";
 import Container from "@mui/material/Container";
 import Box from "@mui/material/Box";
 import ResponsiveAppBar from "../../components/ResponsiveAppBar";
@@ -7,12 +8,15 @@ import { useTheme, Button, Typography } from "@mui/material";
 import OutlinedLabelledTextField from "../../components/OutlinedLabelledTextfield";
 import MessageCard from "./components/MessageCard";
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
+import { resetPassword } from "../../api/reset.request";
 
 function EmailVerificationSuccessful() {
   const theme = useTheme();
   const [createPassword, setCreatePassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [passwordUpdated, setPasswordUpdated] = useState(false);
+  const navigate = useNavigate();
+  const location = useLocation();
 
   const handleCreatePasswordChange = (event) => {
     setCreatePassword(event.target.value);
@@ -22,13 +26,14 @@ function EmailVerificationSuccessful() {
     setConfirmPassword(event.target.value);
   };
 
-  const handleSavePassword = () => {
-    // You can add validation logic here if needed before saving
-    // For example, check if passwords match or meet certain criteria
-    // For simplicity, I'm not adding validation in this example
-
-    // Update state to indicate password has been updated
-    setPasswordUpdated(true);
+  const handleSavePassword = async () => {
+    try {
+      const email = new URLSearchParams(location.search).get("email");
+      await resetPassword(email, createPassword);
+      setPasswordUpdated(true);
+    } catch (error) {
+      console.error("Error resetting password:", error);
+    }
   };
 
   return (

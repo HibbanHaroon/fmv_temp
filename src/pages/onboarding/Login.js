@@ -11,16 +11,44 @@ import ResponsiveAppBar from "../../components/ResponsiveAppBar";
 import OutlinedLabelledTextField from "../../components/OutlinedLabelledTextfield";
 import backgroundIcon from "../../assets/images/background_icon.svg";
 import { useTheme } from "@mui/material/styles";
+import { login } from '../../api/login.request';
 
 function Login() {
   const theme = useTheme();
   const [workMail, setWorkMail] = useState("");
   const [createPassword, setCreatePassword] = useState("");
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
-    // osama ka part
+  
+    try {
+      const loginData = {
+        email: workMail,
+        password: createPassword,
+      };
+  
+      const response = await login(loginData);
+  
+      localStorage.setItem('accessToken', response.accessToken);
+  
+      if (response.refreshToken) {
+        const secureOptions = {
+          sameSite: 'strict',
+          httpOnly: true,
+          secure: true, 
+          path: '/', 
+        };
+        document.cookie = `refreshToken=${response.refreshToken}; ${Object.entries(secureOptions)
+          .map(([key, value]) => `${key}=${value}`)
+          .join('; ')}`;
+      }
+      // const navigate = useNavigate();
+      // navigate('/dashboard');
+    } catch (error) {
+      console.error('Error logging in:', error);
+    }
   };
+  
 
   const isFormValid = () => {
     return workMail.trim() !== "" && createPassword.trim() !== "";

@@ -13,6 +13,7 @@ const MessageCard = ({
   richText,
   richLinkText,
   richLinkHref,
+  onRichLinkClick
 }) => {
   const theme = useTheme();
   return (
@@ -94,6 +95,7 @@ const MessageCard = ({
               href={richLinkHref}
               color="primary"
               sx={{ textDecoration: "none" }}
+              onClick={onRichLinkClick}
             >
               {richLinkText}
             </Link>

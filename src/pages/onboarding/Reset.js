@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import Container from "@mui/material/Container";
 import Box from "@mui/material/Box";
 import ResponsiveAppBar from "../../components/ResponsiveAppBar";
@@ -7,25 +8,58 @@ import { useTheme, Button, Typography } from "@mui/material";
 import OutlinedLabelledTextField from "../../components/OutlinedLabelledTextfield";
 import MessageCard from "./components/MessageCard";
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
+import { checkVerify } from "../../api/checkVerify.request";
+import { Link } from "react-router-dom";
+import { reset } from "../../api/reset.request";
 
 function EmailVerificationSuccessful() {
   const theme = useTheme();
   const [workMail, setWorkMail] = useState("");
   const [emailSent, setEmailSent] = useState(false);
+  const [isVerified, setIsVerified] = useState(false);
+  const navigate = useNavigate();
 
   const handleEmailChange = (event) => {
     setWorkMail(event.target.value);
   };
 
   const isWorkMailValid = () => {
-    // Regular expression for basic email validation
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     return emailRegex.test(workMail);
   };
 
-  const handleSendEmail = () => {
-    setEmailSent(true);
+  const handleSendEmail = async () => {
+    try {
+      await reset({ email: workMail });
+      setEmailSent(true);
+      checkEmailVerification();
+    } catch (error) {
+      console.error("Error sending reset email:", error);
+    }
   };
+
+  const checkEmailVerification = async () => {
+    try {
+      const interval = setInterval(async () => {
+        const response = await checkVerify({ email: workMail }, true,true);
+        if (response.verified) {
+          clearInterval(interval);
+          setIsVerified(true);
+          navigate(`/resetPassword?email=${encodeURIComponent(workMail)}`);
+        }
+      }, 5000);
+    } catch (error) {
+      console.error("Error checking email verification:", error);
+    }
+  };
+  
+
+  useEffect(() => {
+    if (isVerified) {
+      // navigate("/resetPassword");
+      <Link to="/resetPassword" state={{ email: workMail }}></Link>
+    }
+  }, [isVerified, navigate]);
 
   return (
     <>

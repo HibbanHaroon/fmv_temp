@@ -11,9 +11,11 @@ import OutlinedLabelledTextField from "../../components/OutlinedLabelledTextfiel
 import backgroundIcon from "../../assets/images/background_icon.svg";
 import { useTheme } from "@mui/material/styles";
 import { useNavigate } from "react-router-dom";
-import MessageCard from "../onboarding/components/MessageCard"; // Import the MessageCard component
+import MessageCard from "../onboarding/components/MessageCard";
 import EmailSentBadgeIcon from "../../assets/icons/EmailSentBadgeIcon";
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
+import { register } from "../../api/signup.request";
+import EmailVerification from "./EmailVerification";
 
 function Register() {
   const theme = useTheme();
@@ -23,11 +25,40 @@ function Register() {
   const [createPassword, setCreatePassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [checked, setChecked] = useState(false);
-  const [isSubmitted, setIsSubmitted] = useState(false); // New state variable
-
-  const handleSubmit = (event) => {
+  const [isSubmitted, setIsSubmitted] = useState(false);
+  const [apiResponse, setApiResponse] = useState(null);
+  let verifyPassword;
+  const handleSubmit = async (event) => {
     event.preventDefault();
-    setIsSubmitted(true); // Update the state on form submission
+
+    try {
+      const signupData = {
+        email: workMail,
+        name: fullName,
+        password: createPassword,
+      };
+
+      const response = await register(signupData);
+      setApiResponse(response);
+      setIsSubmitted(true);
+    } catch (error) {
+      console.error("Error registering venue:", error);
+    }
+  };
+  const handleRetryRegistration = async () => {
+    try {
+      const signupData = {
+        email: workMail,
+        name: fullName,
+        password: createPassword,
+      };
+
+      const response = await register(signupData);
+      setApiResponse(response);
+      setIsSubmitted(true);
+    } catch (error) {
+      console.error("Error registering venue:", error);
+    }
   };
 
   const isFormValid = () => {
@@ -69,6 +100,7 @@ function Register() {
                 width: "85%",
               }}
             >
+              <EmailVerification email={workMail} password={verifyPassword = 'email'} />
               <MessageCard
                 loaderComponent={
                   <CheckCircleIcon
@@ -83,6 +115,7 @@ function Register() {
                 secondaryText={`We've sent an email to ${workMail} to verify your email address and activate your account`}
                 richText={"If you haven't received an email after a while,"}
                 richLinkText={"click here to try again"}
+                onRichLinkClick={handleRetryRegistration}
               />
             </Box>
           </Container>
