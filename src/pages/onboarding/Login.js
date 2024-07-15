@@ -89,7 +89,7 @@ function Login() {
 
               <Box sx={{ mb: 2, textAlign: "right" }}>
                 <Link
-                  href="#"
+                  href="/reset"
                   color="primary"
                   sx={{ textDecoration: "none", fontWeight: "500" }}
                 >

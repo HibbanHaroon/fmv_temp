@@ -9,6 +9,7 @@ const MessageCard = ({
   primaryText,
   secondaryText,
   buttonText,
+  buttonHref,
   richText,
   richLinkText,
   richLinkHref,
@@ -64,19 +65,21 @@ const MessageCard = ({
             {secondaryText}
           </Typography>
         )}
-        {buttonText && (
-          <Button
-            variant="contained"
-            size="large"
-            sx={{
-              width: "90%",
-              borderRadius: "10px",
-              height: "40px",
-              textTransform: "none",
-            }}
-          >
-            {buttonText}
-          </Button>
+        {buttonText && buttonHref && (
+          <Link href={buttonHref} sx={{ width: "90%", textDecoration: "none" }}>
+            <Button
+              variant="contained"
+              size="large"
+              sx={{
+                width: "100%",
+                borderRadius: "10px",
+                height: "40px",
+                textTransform: "none",
+              }}
+            >
+              {buttonText}
+            </Button>
+          </Link>
         )}
         {richText && (
           <Typography
