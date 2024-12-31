@@ -11,18 +11,32 @@ const OutlinedLabelledTextField = ({
   type,
   value,
   onChange,
+  width, // Add width as a new parameter
 }) => {
   const theme = useTheme();
 
   return (
-    <Box sx={{ display: "flex", flexDirection: "column", mb: 2 }}>
+    <Box
+      sx={{
+        display: "flex",
+        flexDirection: "column",
+        mb: 2,
+        width: { xs: "100%", md: width } || "100%",
+      }}
+    >
+      {" "}
+      {/* Use the width parameter */}
       <Typography
         variant="body1"
         gutterBottom
         fontWeight="300"
         align="left"
         sx={{
-          fontSize: { xs: "subtitle2.fontSize", md: "body1.fontSize" },
+          fontSize: {
+            xs: "subtitle2.fontSize",
+            md: "body1.fontSize",
+            color: theme.palette.grey.text,
+          },
         }}
       >
         {label}
